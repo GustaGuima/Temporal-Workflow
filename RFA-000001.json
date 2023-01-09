@@ -1,0 +1,28 @@
+{
+  "applicationId": "RFA-000001",
+  "preApproval": false,
+  "documents": [
+    {
+      "name": "doc1.pdf"
+    },
+    {
+      "name": "doc2.pdf"
+    },
+    {
+      "name": "doc3.pdf"
+    }
+  ],
+  "applicants": [
+    {
+      "creditScore": 600
+    }
+  ],
+  "mortgage": {
+    "loanAmount": 550000
+  },
+  "conditions": [
+    { "title": "condition 1", "verbiage": "condition text" },
+    { "title": "condition 2", "verbiage": "condition text" },
+    { "title": "condition 3", "verbiage": "condition text" }
+  ]
+}

@@ -1,0 +1,13 @@
+{
+    "applicationId": "RFA-000003",
+    "preApproval": true,
+    "documents": [],
+    "applicants": [
+        {
+            "creditScore": 750
+        }
+    ],
+    "mortgage": {
+        "loanAmount": 550000
+    }
+}
