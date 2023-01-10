@@ -1,51 +1,6 @@
 version: '3.7'
 
 services:
-  main:
-    container_name: main
-    build:
-      context: .
-      dockerfile: "docker/webserver/Dockerfile"
-    volumes:
-      - .:/usr/src/app
-      - /usr/src/app/node_modules
-    ports:
-      - 3000:3000
-    command: npm run start:dev
-    networks:
-      - temporal-network
-    depends_on:
-      - database
-  worker:
-    container_name: worker
-    build:
-      context: .
-      dockerfile: "docker/worker/Dockerfile"
-    depends_on:
-      - temporal
-      - elasticsearch
-      - postgresql
-      - temporal-admin-tools
-    networks:
-      - temporal-network
-    ports:
-      - 8000:8000
-    command: npm run start:work
-  database:
-    container_name: 'database'
-    image: mysql:8.0
-    restart: always
-    environment:
-      MYSQL_ROOT_PASSWORD: root123
-      MYSQL_DATABASE: temporal
-    networks:
-      - temporal-network
-    ports:
-      - "3307:3306"
-    expose:
-      - '3307'
-    volumes:
-      - ./src/database/data:/var/lib/mysql
   elasticsearch:
     container_name: temporal-elasticsearch
     environment:
@@ -122,7 +77,52 @@ services:
       - temporal-network
     ports:
       - 8080:8080
-
+  main:
+    container_name: main
+    build:
+      context: .
+      dockerfile: "docker/webserver/Dockerfile"
+    volumes:
+      - .:/usr/src/app
+      - /usr/src/app/node_modules
+    ports:
+      - 3000:3000
+    command: npm run start:dev
+    networks:
+      - temporal-network
+    depends_on:
+      - database
+  worker:
+    container_name: worker
+    restart: always
+    build:
+      context: .
+      dockerfile: "docker/worker/Dockerfile"
+    depends_on:
+      - temporal
+      - elasticsearch
+      - postgresql
+      - temporal-admin-tools
+    networks:
+      - temporal-network
+    ports:
+      - 8000:8000
+    command: npm run start:work
+  database:
+    container_name: 'database'
+    image: mysql:8.0
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: root123
+      MYSQL_DATABASE: temporal
+    networks:
+      - temporal-network
+    ports:
+      - "3307:3306"
+    expose:
+      - '3307'
+    volumes:
+      - ./src/database/data:/var/lib/mysql
 networks:
   temporal-network:
     driver: bridge

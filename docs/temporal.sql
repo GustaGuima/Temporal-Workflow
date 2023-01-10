@@ -13,5 +13,6 @@ CREATE TABLE IF NOT EXISTS `temporal`.`credit` (
   `pre_approval` TINYINT NOT NULL DEFAULT 0,
   `credit_score` DOUBLE NOT NULL DEFAULT 0,
   `mortgage` DOUBLE NOT NULL DEFAULT 0,
+  `docs` VARCHAR(255) NOT NULL,
   PRIMARY KEY (`id`))
 ENGINE = InnoDB;

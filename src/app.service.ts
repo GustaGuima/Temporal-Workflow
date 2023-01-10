@@ -2,6 +2,7 @@ import { Injectable, Inject } from '@nestjs/common';
 import { Credit } from './interface/credit';
 import { CreditEntity } from "./interface/CreditEntity";
 import { CreditService } from './credit.service';
+import { json } from 'stream/consumers';
 
 @Injectable()
 export class AppService {
@@ -21,10 +22,14 @@ export class AppService {
       creditScore += item.creditScore;
     }
     creditEntity.credit_score = creditScore
+    creditEntity.docs = JSON.stringify(credit.documents)
 
-    const creditCreate = this.creditService.create({ credit: creditEntity })
-    console.log(creditCreate)
-
+    try {
+      this.creditService.create({ credit: creditEntity })
+    } catch (error) {
+      console.error('error saving credit: ', error)
+    }
+   
     return credit;
   }
 }

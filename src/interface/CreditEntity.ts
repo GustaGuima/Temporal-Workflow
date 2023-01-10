@@ -16,4 +16,7 @@ export class CreditEntity {
 
     @Column()
     mortgage: number;
+
+    @Column()
+    docs: string;
 }
